@@ -31,6 +31,7 @@
 
     #More Cleaning
     sed -i "s/mp3//g" "$2/MusicList"
+    sed -i "s/\[.*\]//g" "$2/MusicList"
 
     # Creating Directory List for Hierarchy Replication from Music List
     echo "Creating Directory List"
@@ -46,8 +47,8 @@
 
     # Creating Dummy Music Files with Original Hierarchy Hard linked to the Media Script
     echo "Creating Music Files"
-    cat "$2/MusicList" | while read LINE ; do
-	ln Play "$LINE"
+    cat "$2/MusicList" | while read MEDIA ; do
+	ln Play "$MEDIA"
     done
 
     # Cleaning Up

@@ -14,15 +14,14 @@
 song=`echo "$0" | sed -n 's/^.*\/\(.*\)$/\1/p'`
 
 # EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
-songurl=`curl -s http://api.duckduckgo.com/?q="! Grooveshark.com $song"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
+songurl=`curl -s http://api.duckduckgo.com/?q="! youtube.com song $song"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
 
 # ERROR CATCHING
-[[ "$songurl" = "" ]] && ( notify-send "Unable to Retrieve Media" -t 500 --hint string:transient:1; )
+#[[ "$songurl" = "" ]] && ( notify-send "Unable to Retrieve Media" -t 500 --hint string:transient:1; )
 
 # DEBUGGER
-notify-send "$song $songurl" -t 500 --hint string:transient:1;
+#notify-send "$song $songurl" -t 500 --hint string:transient:1;
 
 # PLAYING URL OVER VLC
-`vlc -q $songurl > /dev/null 2>&1`  #For Top Quality Video
+`vlc -q --playlist-enqueue --started-from-file $songurl > /dev/null 2>&1`  #For Top Quality Video
 #`vlc -q $songurl&fmt=18  > /dev/null 2>&1`  #For Lowest Quality Video
-
