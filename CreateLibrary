@@ -33,6 +33,9 @@
     sed -i "s/mp3//g" "$2/MusicList"
     sed -i "s/\[.*\]//g" "$2/MusicList"
 
+    # Setting Extension
+    sed -i "s/\(.*\)/\1.ctp/g" "$2/MusicList"
+
     # Creating Directory List for Hierarchy Replication from Music List
     echo "Creating Directory List"
     sed -n 's/^\(.*\)\/.*$/\1/p' "$2/MusicList" > "$2/DirList"
