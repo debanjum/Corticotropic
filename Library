@@ -1,0 +1,60 @@
+#!/bin/bash
+
+#***********************************************************************#
+#                             CreateLibrary                             #
+#                                  by                                   #
+#                        Debanjum Singh Solanky                         #
+#                            April 24, 2014                             #
+#                                                                       #
+# Creates Web Streamable Media Directory based on your Media Collection #
+#         ./CreateLibrary Your_Media_Directory Dummy_Directory          #
+#                                                                       #
+#***********************************************************************#
+
+[ $# -eq 2 ] && (
+    # Creating Music List with Full File Path
+    echo "Creating Music Files List"
+    find "$1/" | grep 'mp3\|MP3\|M4A\|m4a' > "$2/MusicList"
+    
+    # Substituting Original Music Folder Mention in File Path with New Music Folder Path in Music File List
+    echo "Cleaning Music List"
+    dir1=$(echo "$1" | sed 's/\//\\\//g')
+    dir2=$(echo "$2/Music" | sed 's/\//\\\//g')
+    sed -i "s/${dir1}/${dir2}/g" "$2/MusicList"
+
+    # Cleaning Music File List
+    # Replace File Extensions
+    sed -i "s/.mp3//g" "$2/MusicList"
+    sed -i "s/.MP3//g" "$2/MusicList"
+    sed -i "s/.m4a//g" "$2/MusicList"
+    sed -i "s/.M4A//g" "$2/MusicList"
+
+    #More Cleaning
+    sed -i "s/mp3//g" "$2/MusicList"
+
+    # Creating Directory List for Hierarchy Replication from Music List
+    echo "Creating Directory List"
+    sed -n 's/^\(.*\)\/.*$/\1/p' "$2/MusicList" > "$2/DirList"
+
+    # Removing Duplicate Directory Entries in Directory List
+    echo "Cleaning Directory List"
+    sort "$2/DirList" | uniq > "$2/DirList2"
+
+    # Creating Folders in Original Hierarchy
+    echo "Creating Music Directories"
+    xargs -0 mkdir -p < <(tr \\n \\0 <"$2/DirList2")
+
+    # Creating Dummy Music Files with Original Hierarchy Hard linked to the Media Script
+    echo "Creating Music Files"
+    cat "$2/MusicList" | while read LINE ; do
+	ln Play "$LINE"
+    done
+
+    # Cleaning Up
+    echo "Removing Temporary Lists"
+    rm $2/MusicList $2/DirList $2/DirList2
+
+    # Library Created
+    echo -e "DONE: Music Library Created at $2/Music"
+
+) || (echo -e "Invalid Argument(s)\nCommand Format: $0 path/to/Original/Music/Directory /path/to/New/Music/Directory\nExample: $0 /home/john/Music \"/path/to/New Music Directory\"")
