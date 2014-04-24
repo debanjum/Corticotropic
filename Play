@@ -1,44 +1,44 @@
 #!/bin/bash
 
 #************************************************************#
-#                           Play                             #
+#                      Corticotropic                         #
 #                            by                              #
 #                  Debanjum Singh Solanky                    #
 #                      April 24, 2014                        #
 #                                                            #
 #              Stream Media from the Web on VLC              #
-#                          ./Play                            #
+#                ./Play [Filename/SearchTerm]                #
 #************************************************************#
 
 # RETRIEVING MEDIA FILENAME FROM FILEPATH
-[ $# -eq 0 ] && (
-song=`echo "$0" | sed -n 's/^.*\/\(.*\)$/\1/p'`
+[ $# -eq 0 ] && ( 
 
 # EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
-songurl=`curl -s http://api.duckduckgo.com/?q="! youtube.com song $song"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
+mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com  $media"\&format=json\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
 
 # ERROR CATCHING
-#[[ "$songurl" = "" ]] && ( notify-send "Unable to Retrieve Media" -t 500 --hint string:transient:1; )
+[[ "$mediaurl" = "" ]] && ( notify-send "Unable to Retrieve Media" "Please Check Your Internet Connection" -t 500 --hint string:transient:1; )
 
 # DEBUGGER
-#notify-send "$song $songurl" -t 500 --hint string:transient:1;
+notify-send "$media $mediaurl" -t 500 --hint string:transient:1;
 
 # PLAYING URL OVER VLC
-`vlc -q --playlist-enqueue --play-and-exit --started-from-file $songurl > /dev/null 2>&1`  #For Top Quality Video
-#`vlc -q $songurl&fmt=18  > /dev/null 2>&1`  #For Lowest Quality Video
-) || ( [ $# -eq 1 ] && (
-song=`echo "$1" | sed -n 's/^.*\/\(.*\)$/\1/p'`
+`vlc --playlist-enqueue --play-and-exit --started-from-file $mediaurl &> ~/.corticotropic/.ctp.log`  #For Top Quality Video
+#`vlc --playlist-enqueue --play-and-exit --started-from-file $mediaurl&fmt=18 &> ~/.corticotropic/.ctp.log`  #For Lowest Quality Video
+) || ( 
+
+[ $# -eq 1 ] && ( 
 
 # EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
-songurl=`curl -s http://api.duckduckgo.com/?q="! youtube.com song $song"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
+mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com $media"\&format=json\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
 
 # ERROR CATCHING
-#[[ "$songurl" = "" ]] && ( notify-send "Unable to Retrieve Media" -t 500 --hint string:transient:1; )
+[[ "$mediaurl" = "" ]] && ( notify-send "Unable to Retrieve Media" "Please Check Your Internet Connection" -t 500 --hint string:transient:1; )
 
 # DEBUGGER
-#notify-send "$song $songurl" -t 500 --hint string:transient:1;
+notify-send "$media $mediaurl" -t 500 --hint string:transient:1;
 
 # PLAYING URL OVER VLC
-`vlc -q --playlist-enqueue --play-and-exit --started-from-file $songurl > /dev/null 2>&1`  #For Top Quality Video
-#`vlc -q $songurl&fmt=18  > /dev/null 2>&1`  #For Lowest Quality Video
+`vlc --playlist-enqueue --play-and-exit --started-from-file $mediaurl &> ~/.corticotropic/.ctp.log`  #For Top Quality Video
+#`vlc --playlist-enqueue --play-and-exit --started-from-file $mediaurl&fmt=18 &> ~/.corticotropic/.ctp.log`  #For Lowest Quality Video
 ))
