@@ -10,11 +10,13 @@
 #                ./Play [Filename/SearchTerm]                #
 #************************************************************#
 
-# RETRIEVING MEDIA FILENAME FROM FILEPATH
 [ $# -eq 0 ] && ( 
 
+# RETRIEVING MEDIA FILENAME FROM FILEPATH
+media=`echo "$0" | sed -n 's/^.*\/\(.*\)$/\1/p'`
+
 # EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
-mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com  $media"\&format=json\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
+mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com $media"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
 
 # ERROR CATCHING
 [[ "$mediaurl" = "" ]] && ( notify-send "Unable to Retrieve Media" "Please Check Your Internet Connection" -t 500 --hint string:transient:1; )
@@ -29,8 +31,11 @@ notify-send "$media $mediaurl" -t 500 --hint string:transient:1;
 
 [ $# -eq 1 ] && ( 
 
+# RETRIEVING MEDIA FILENAME FROM FILEPATH
+media=`echo "$1" | sed -n 's/^.*\/\(.*\)$/\1/p'`
+
 # EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
-mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com $media"\&format=json\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
+mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com $media"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'`
 
 # ERROR CATCHING
 [[ "$mediaurl" = "" ]] && ( notify-send "Unable to Retrieve Media" "Please Check Your Internet Connection" -t 500 --hint string:transient:1; )

@@ -12,6 +12,7 @@
 #***********************************************************************#
 
 [ $# -eq 2 ] && (
+
     # Creating Music List with Full File Path
     echo "Creating Music Files List"
     find "$1/" | grep 'mp3\|MP3\|M4A\|m4a' > "$2/MusicList"
@@ -19,7 +20,7 @@
     # Substituting Original Music Folder Mention in File Path with New Music Folder Path in Music File List
     echo "Cleaning Music List"
     dir1=$(echo "$1" | sed 's/\//\\\//g')
-    dir2=$(echo "$2/Music" | sed 's/\//\\\//g')
+    dir2=$(echo "$2/music" | sed 's/\//\\\//g')
     sed -i "s/${dir1}/${dir2}/g" "$2/MusicList"
 
     # Cleaning Music File List
@@ -59,6 +60,6 @@
     rm $2/MusicList $2/DirList $2/DirList2
 
     # Library Created
-    echo -e "DONE: Music Library Created at $2/Music"
+    echo -e "DONE: Music Library Created at $2/music"
 
 ) || (echo -e "Invalid Argument(s)\nCommand Format: $0 path/to/Original/Music/Directory /path/to/New/Music/Directory\nExample: $0 /home/john/Music \"/path/to/New Music Directory\"")
