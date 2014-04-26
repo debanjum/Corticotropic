@@ -26,4 +26,4 @@ sudo ln -sf ~/.corticotropic/Play /usr/bin/corticotropic
 echo "Updating Application Database"
 update-desktop-database ~/.local/share/applications
 update-mime-database    ~/.local/share/mime
-#sudo echo "application/x-corticotropic=corticotropic.desktop" >> usr/share/applications/defaults.list
+#sudo echo "application/x-corticotropic=corticotropic.desktop" >> /usr/share/applications/defaults.list
