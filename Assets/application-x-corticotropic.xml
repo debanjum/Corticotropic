@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="application/x-corticotropic">
+        <comment>mime type - ctp</comment>
+        <icon name="application-x-corticotropic"/>
+        <glob-deleteall/>
+        <glob pattern="*.ctp"/>
+    </mime-type>
+</mime-info>

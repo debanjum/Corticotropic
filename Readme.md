@@ -51,9 +51,9 @@ Please file bug reports in [issues](https://github.com/debanjum/Corticotropic/is
 
 ATTRIBUTION
 ---------------
-![DuckDuckGo](http://duckduckgo.com/assets/badges/logo_wide.png)
-![Youtube](https://developers.google.com/youtube/images/YouTube-logo-full_color.png)
-![VLC](https://en.wikipedia.org/wiki/File:VLC_Icon.svg)
+<a href="DuckDuckGo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/55/DuckDuckGo_Logo_%28mid_2014%29.svg/200px-DuckDuckGo_Logo_%28mid_2014%29.svg.png" align="left" height="100" width="100" ></a>
+<a href="Youtube"><img src="https://developers.google.com/youtube/images/pwrdByYT-black.png" align="left" height="100" width="150" ></a>
+<a href="VLC"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/200px-VLC_Icon.svg.png" align="left" height="100" width="100" ></a>  <br><br><br>
 
 
 LICENSE

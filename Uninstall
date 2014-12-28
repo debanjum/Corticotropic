@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#************************************************************#
+#                       Corticotropic                        #
+#                            by                              #
+#                  Debanjum Singh Solanky                    #
+#                      April 24, 2014                        #
+#                                                            #
+#               Application Removal Script                   #
+#            Stream Media from the Web on VLC                #
+#                       ./Uninstall                          #
+#************************************************************#
+
+echo "Uninstalling Application"
+rm -R ~/.corticotropic
+rm /usr/bin/corticotropic ~/.local/share/applications/corticotropic.desktop ~/.local/share/mime/packages/application-x-corticotropic.xml
+echo "Updating Application Database"
+update-desktop-database ~/.local/share/applications
+update-mime-database    ~/.local/share/mime
+#sudo echo "application/x-corticotropic=corticotropic.desktop" >> /usr/share/applications/defaults.list

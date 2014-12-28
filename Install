@@ -20,9 +20,11 @@ cp .corticotropic.png ~/.corticotropic/
 echo "Installing Application"
 mkdir -p ~/.local/share/mime/packages
 cp ./Assets/application-x-corticotropic.xml ~/.local/share/mime/packages/
+sed -ie "s/HOME/\/home\/$USER/g" ./Assets/corticotropic.desktop
 cp ./Assets/corticotropic.desktop ~/.local/share/applications/
 sudo chmod +x ~/.corticotropic/Play ~/.corticotropic/CreateLibrary
 sudo ln -sf ~/.corticotropic/Play /usr/bin/corticotropic
+rm ./Assets/corticotropic.desktope
 echo "Updating Application Database"
 update-desktop-database ~/.local/share/applications
 update-mime-database    ~/.local/share/mime
