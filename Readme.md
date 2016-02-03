@@ -9,13 +9,15 @@ Play your media from the web on your favourite local media player while maintain
 DEPENDENCIES
 ------------
 + Bash
-+ notify-send: For Debug Notifications [not necessary, you can replace/modify the notification command to whatever suits]
-+ VLC: For streaming media [Can substitute with any network streaming capable media player]
++ [Youtube-dl](https://rg3.github.io/youtube-dl)
++ notify-send: For notifications [Can be subsituted in "Play" script with a notification mechanism of your choice]
++ VLC: For streaming media [Can substitute in "Play" script with any network streaming capable media player]
 
 
 INSTALLATION
 ---------------
 1. Install [VLC](http://www.videolan.org/vlc)
+2. Install [Youtube-dl](https://rg3.github.io/youtube-dl/download.html)
 2. Install the Application
 ```sh
 $ cd /path/to/working/directory
@@ -42,6 +44,7 @@ Keep the .ctp in a non-hidden folder
 3. Make sure all files are executable
 4. Ensure all applications dependencies installed
 5. Let VLC start before trying to queue other media files. Otherwise multiple instances of it open up.
+6. If get 'Please Check Your Internet Connection' in notify-send. It may mean DuckDuckGo has stopped giving results for youtube URL queries. 
 
 
 BUGS
@@ -51,7 +54,7 @@ Please file bug reports in [issues](https://github.com/debanjum/Corticotropic/is
 
 ATTRIBUTION
 ---------------
-<a href="DuckDuckGo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/55/DuckDuckGo_Logo_%28mid_2014%29.svg/200px-DuckDuckGo_Logo_%28mid_2014%29.svg.png" align="left" height="100" width="100" ></a>
+<a href="DuckDuckGo"><img src="https://github.com/debanjum/Corticotropic/blob/master/Assets/Images/DDG_Dax.1x.png" align="left" height="100" width="100" ></a>
 <a href="Youtube"><img src="https://developers.google.com/youtube/images/pwrdByYT-black.png" align="left" height="100" width="150" ></a>
 <a href="VLC"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/200px-VLC_Icon.svg.png" align="left" height="100" width="100" ></a>  <br><br><br>
 

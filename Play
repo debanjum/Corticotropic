@@ -1,0 +1,48 @@
+#!/bin/bash
+#************************************************************#
+#                      Corticotropic                         #
+#                            by                              #
+#                  Debanjum Singh Solanky                    #
+#                      April 24, 2014                        #
+#                                                            #
+#              Stream Media from the Web on VLC              #
+#                ./Play [Filename/SearchTerm]                #
+#************************************************************#
+
+# IF INVOKED THROUGH COMMANDLINE
+[ $# -eq 0 ] && ( 
+
+# RETRIEVING MEDIA FILENAME FROM FILEPATH [Delete Root Path, Punctutations, Digits and Extension]
+filename=$(basename "$0"); filetitle="${filename%.*}"; media=`echo "$filetitle" | tr [:digit:] ' ' | tr [:punct:] ' ' | tr -s [:blank:]`; echo $media;
+
+# LOGGING IF UNABLE TO EXTRACT MEDIA FILENAME
+[[ "$media" = "" ]] && ( notify-send "Unable to Retrieve Media Local URL" "Please Check Your Script" -t 500 ) || ( 
+
+# EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
+mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com $media"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'` 
+
+# LOGGING IF UNABLE TO EXTRACT MEDIA URL
+[[ "$mediaurl" = "" ]] && ( notify-send "Please Check Your Internet Connection" "Unable to Retrieve Media Web URL for $media" -t 500 ) || (
+
+# EXTRACTING AUDIO FROM URL AND STREAMING THROUGH VLC
+`youtube-dl -f 140 $mediaurl -o -| vlc -`
+))) || (
+
+# IF INVOKED THROUGH GUI
+[ $# -eq 1 ] && ( 
+
+# RETRIEVING MEDIA FILENAME FROM FILEPATH [Delete Root Path, Punctutations, Digits and Extension]
+filename=$(basename "$1"); filetitle="${filename%.*}"; media=`echo "$filetitle" | tr [:digit:] ' ' | tr [:punct:] ' ' | tr -s [:blank:]`; echo $media;
+
+# LOGGING IF UNABLE TO EXTRACT MEDIA FILENAME
+[[ "$media" == "" ]] && ( notify-send "Unable to Retrieve Media Local URL" "Please Check Your Script" -t 500 ) || ( 
+
+# EXTRACTING TOP MEDIA URL FROM DUCKDUCKGO
+mediaurl=`curl -s http://api.duckduckgo.com/?q="! site:youtube.com $media"\&format=json\&pretty=1\&no_redirect=1 | sed -n 's/^.*\"Redirect" \: \"\(.*\)\"\,.*$/\1/p'` 
+
+# LOGGING IF UNABLE TO EXTRACT MEDIA URL
+[[ "$mediaurl" == "" ]] && ( notify-send "Please Check Your Internet Connection" "Unable to Retrieve Media Web URL for $media" -t 500 ) || (
+
+# EXTRACTING AUDIO FROM URL AND STREAMING THROUGH VLC
+`youtube-dl -f 140 $mediaurl -o -| vlc -`
+))))
